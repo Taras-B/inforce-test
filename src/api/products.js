@@ -2,9 +2,9 @@ import http from './index'
 
 export const productsAPI = {
   getProducts() {
-    return http.getProducts(`products.json`).then((data) => data.products)
+    return http.get(`products.json`).then((data) => data.data)
   },
-  getProduct(id) {
-    return http.get(`products/${id}.json`).then((data) => data)
+  createProduct(data) {
+    return http.post(`products.json`, data).then((data) => data)
   },
 }

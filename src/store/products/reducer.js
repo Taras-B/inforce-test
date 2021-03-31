@@ -1,3 +1,5 @@
+import { SET_PRODUCTS } from './const-type'
+
 const initialState = {
   isProducts: false,
   products: [],
@@ -5,7 +7,7 @@ const initialState = {
 
 export const productsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'SET_PRODUCTS':
+    case SET_PRODUCTS:
       return { ...state, isProducts: true, products: action.payload }
 
     default:
