@@ -27,7 +27,7 @@ export const DeleteModalProduct = ({ id }) => {
 
   return (
     <>
-      <Button variant='outlined' color='primary' onClick={handleClickOpen}>
+      <Button variant='outlined' color='secondary' onClick={handleClickOpen}>
         Видалити
       </Button>
       <Dialog open={open} onClose={handleClose} aria-labelledby='alert-dialog-title'>

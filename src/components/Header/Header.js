@@ -5,7 +5,7 @@ import { AppBar, makeStyles, Toolbar } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
-    backgroundColor: '#2e333b',
+    backgroundColor: theme.palette.success.main,
   },
   icon: {
     marginRight: theme.spacing(2),
