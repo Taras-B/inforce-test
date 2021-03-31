@@ -20,7 +20,7 @@ import { DeleteModalProduct } from './components/DeleteModalProduct'
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 345,
+    marginTop: 80,
   },
   media: {
     height: 140,
@@ -49,13 +49,14 @@ export const ProductList = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   return (
-    <Grid container>
+    <Grid container className={classes.root} spacing={4}>
       <Grid item container xs={12}>
         <Button
           onClick={() => {
             setOpenAdd(true)
           }}
-          color='primary'>
+          color='primary'
+          variant='outlined'>
           New
         </Button>
       </Grid>
