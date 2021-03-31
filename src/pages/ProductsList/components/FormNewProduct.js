@@ -2,7 +2,12 @@ import React from 'react'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import Grid from '@material-ui/core/Grid'
-export const FormNewProduct = ({ values, handleChange, handleCloseAddProduct }) => {
+export const FormNewProduct = ({
+  values,
+  handleChange,
+  handleCloseAddProduct,
+  buttonName,
+}) => {
   return (
     <Grid container direction='column'>
       <TextField
@@ -65,11 +70,11 @@ export const FormNewProduct = ({ values, handleChange, handleCloseAddProduct }) 
         required={true}
         value={values.weight}
       />
-      <Button onClick={handleCloseAddProduct} color='primary' type='submit'>
-        Cancel
+      <Button onClick={handleCloseAddProduct} color='secondary'>
+        Відмінити
       </Button>
       <Button color='primary' type='submit'>
-        login
+        {buttonName}
       </Button>
     </Grid>
   )

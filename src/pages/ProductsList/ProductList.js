@@ -115,6 +115,7 @@ export const ProductList = () => {
                       values={values}
                       handleChange={handleChange}
                       handleCloseAddProduct={handleCloseAddProduct}
+                      buttonName='Створити'
                     />
                   </Form>
                 </Grid>

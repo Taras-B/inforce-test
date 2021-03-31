@@ -5,8 +5,4 @@ export const productActions = {
     type: SET_PRODUCT_INFO,
     payload,
   }),
-  update: (payload) => ({
-    type: SET_PRODUCT_INFO,
-    payload,
-  }),
 }

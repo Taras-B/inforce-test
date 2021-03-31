@@ -13,4 +13,7 @@ export const productsAPI = {
   deleteProduct(id) {
     return http.delete(`products/${id}.json`).then((data) => data)
   },
+  updateProduct(data, id) {
+    return http.put(`products/${id}.json`, data).then((data) => data)
+  },
 }

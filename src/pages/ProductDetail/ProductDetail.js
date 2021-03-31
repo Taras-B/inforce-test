@@ -11,11 +11,11 @@ import Card from '@material-ui/core/Card'
 import CardMedia from '@material-ui/core/CardMedia'
 import CardContent from '@material-ui/core/CardContent'
 import CardActions from '@material-ui/core/CardActions'
-
-import DialogTitle from '@material-ui/core/DialogTitle'
+import Button from '@material-ui/core/Button'
 
 import { getProductById } from '../../store/product/thunk'
 import { CardDetailsProduct } from './components/CardDetailsProduct'
+import { EditProductModal } from './components/EditProductModal'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,10 +29,19 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 export const ProductDetail = () => {
+  const [open, setOpen] = React.useState(false)
   const classes = useStyles()
   const dispatch = useDispatch()
   const { id } = useParams()
   const product = useSelector((state) => state.productInfo.product)
+
+  const handleClickOpen = () => {
+    setOpen(true)
+  }
+
+  const handleClose = () => {
+    setOpen(false)
+  }
 
   React.useEffect(() => {
     if (id) {
@@ -63,11 +72,21 @@ export const ProductDetail = () => {
                 <CardContent>
                   <CardDetailsProduct product={product} />
                 </CardContent>
-                <CardActions></CardActions>
+                <CardActions>
+                  <Button variant='outlined' color='primary' onClick={handleClickOpen}>
+                    Edit
+                  </Button>
+                </CardActions>
               </Card>
             </Grid>
             <Divider />
           </Grid>
+          <EditProductModal
+            product={product}
+            productId={id}
+            open={open}
+            handleClose={handleClose}
+          />
         </Paper>
       </Grid>
     </Grid>
