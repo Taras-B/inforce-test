@@ -7,4 +7,7 @@ export const productsAPI = {
   createProduct(data) {
     return http.post(`products.json`, data).then((data) => data)
   },
+  deleteProduct(id) {
+    return http.delete(`products/${id}.json`).then((data) => data)
+  },
 }

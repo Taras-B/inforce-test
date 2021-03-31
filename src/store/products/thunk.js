@@ -27,15 +27,23 @@ export const createProduct = (data) => {
         width: data.width,
       },
       weight: data.weight,
+      comments: null,
     }
     const res = await productsAPI.createProduct(newData)
-
-    console.log('CREATE_PRODUCT___', res.data)
 
     const payload = {
       ...newData,
       id: res.data.name,
     }
     dispatch(productsActions.create(payload))
+  }
+}
+
+export const deleteProduct = (id) => {
+  return async (dispatch) => {
+    const res = await productsAPI.deleteProduct(id)
+
+    console.log(res)
+    dispatch(productsActions.delete(id))
   }
 }

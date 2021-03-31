@@ -1,27 +1,46 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { Formik, Form, FormikHelpers } from 'formik'
+import { useDispatch, useSelector } from 'react-redux'
+import { Formik, Form } from 'formik'
+import { Link } from 'react-router-dom'
 
 import Button from '@material-ui/core/Button'
-import TextField from '@material-ui/core/TextField'
 import Grid from '@material-ui/core/Grid'
 import Dialog from '@material-ui/core/Dialog'
-import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
-import DialogContentText from '@material-ui/core/DialogContentText'
+import { makeStyles } from '@material-ui/core/styles'
+import Card from '@material-ui/core/Card'
+import CardMedia from '@material-ui/core/CardMedia'
+import CardContent from '@material-ui/core/CardContent'
+import CardActions from '@material-ui/core/CardActions'
+import Typography from '@material-ui/core/Typography'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import { createProduct, getProducts } from '../../store/products/thunk'
+import { FormNewProduct } from './components/FormNewProduct'
+import { DeleteModalProduct } from './components/DeleteModalProduct'
+
+const useStyles = makeStyles({
+  root: {
+    maxWidth: 345,
+  },
+  media: {
+    height: 140,
+  },
+})
 
 export const ProductList = () => {
+  const classes = useStyles()
   const [openAdd, setOpenAdd] = useState(false)
+  const { products } = useSelector((state) => state.products)
+
   const dispatch = useDispatch()
   const handleCloseAddProduct = () => {
     setOpenAdd(false)
   }
+
   const onSubmitForm = (values, actions) => {
     console.log(values)
     dispatch(createProduct(values))
-    // actions.resetForm()
+    actions.resetForm()
     setOpenAdd(false)
   }
 
@@ -40,8 +59,34 @@ export const ProductList = () => {
           New
         </Button>
       </Grid>
-      <Grid item container xs={12}>
-        list
+      <Grid item container xs={12} spacing={4}>
+        {products.map((item) => (
+          <Grid key={item.id} item xs={12} sm={6} md={6}>
+            <Card>
+              <CardMedia
+                image={item.imageUrl}
+                title='Paella dish'
+                className={classes.media}
+              />
+              <CardContent>
+                <Typography gutterBottom variant='h5' component='h2'>
+                  Назва: {item.name}
+                </Typography>
+                <Typography gutterBottom variant='h5' component='h2'>
+                  Кількість: {item.count}
+                </Typography>
+              </CardContent>
+              <CardActions>
+                <Link to={`products/${item.id}`} style={{ textDecoration: 'none' }}>
+                  <Button variant='contained' size='small' color='primary'>
+                    Більше
+                  </Button>
+                </Link>
+                <DeleteModalProduct id={item.id} />
+              </CardActions>
+            </Card>
+          </Grid>
+        ))}
       </Grid>
       <Dialog
         open={openAdd}
@@ -65,77 +110,11 @@ export const ProductList = () => {
               <Grid container>
                 <Grid item xs={12}>
                   <Form>
-                    <Grid container direction='column'>
-                      <TextField
-                        onChange={handleChange}
-                        value={values.name}
-                        label='Product Name'
-                        name='name'
-                        variant='outlined'
-                        fullWidth
-                        margin='normal'
-                        required={true}
-                      />
-                      <TextField
-                        value={values.count}
-                        onChange={handleChange}
-                        label='Count'
-                        name='count'
-                        variant='outlined'
-                        fullWidth
-                        margin='normal'
-                        required={true}
-                      />
-                      <TextField
-                        value={values.image}
-                        onChange={handleChange}
-                        label='Image Url'
-                        name='image'
-                        variant='outlined'
-                        fullWidth
-                        margin='normal'
-                        required={true}
-                      />
-                      <TextField
-                        value={values.height}
-                        onChange={handleChange}
-                        label='Height'
-                        name='height'
-                        variant='outlined'
-                        fullWidth
-                        margin='normal'
-                        required={true}
-                      />
-                      <TextField
-                        value={values.width}
-                        onChange={handleChange}
-                        label='Width'
-                        name='width'
-                        variant='outlined'
-                        fullWidth
-                        margin='normal'
-                        required={true}
-                      />
-                      <TextField
-                        label='Weight'
-                        onChange={handleChange}
-                        name='weight'
-                        variant='outlined'
-                        fullWidth
-                        margin='normal'
-                        required={true}
-                        value={values.weight}
-                      />
-                      <Button
-                        onClick={handleCloseAddProduct}
-                        color='primary'
-                        type='submit'>
-                        Cancel
-                      </Button>
-                      <Button color='primary' type='submit'>
-                        login
-                      </Button>
-                    </Grid>
+                    <FormNewProduct
+                      values={values}
+                      handleChange={handleChange}
+                      handleCloseAddProduct={handleCloseAddProduct}
+                    />
                   </Form>
                 </Grid>
               </Grid>

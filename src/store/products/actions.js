@@ -1,4 +1,4 @@
-import { SET_PRODUCT, SET_PRODUCTS } from './const-type'
+import { SET_DELETE_PRODUCT, SET_PRODUCT, SET_PRODUCTS } from './const-type'
 
 export const productsActions = {
   setData: (payload) => ({
@@ -7,6 +7,10 @@ export const productsActions = {
   }),
   create: (payload) => ({
     type: SET_PRODUCT,
+    payload,
+  }),
+  delete: (payload) => ({
+    type: SET_DELETE_PRODUCT,
     payload,
   }),
 }
