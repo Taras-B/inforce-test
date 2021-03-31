@@ -37,10 +37,10 @@ export const DeleteModalProduct = ({ id }) => {
 
         <DialogActions>
           <Button onClick={handleDelete} color='primary'>
-            Yes
+            Так
           </Button>
           <Button onClick={handleClose} color='primary' autoFocus>
-            No
+            Ні
           </Button>
         </DialogActions>
       </Dialog>

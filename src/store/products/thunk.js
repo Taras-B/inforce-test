@@ -4,7 +4,7 @@ import { productsActions } from './actions'
 export const getProducts = () => {
   return async (dispatch) => {
     let res = await productsAPI.getProducts()
-    console.log('GET_PRODUCTS___', res)
+
     const payload = Object.keys(res).map((key) => {
       return {
         ...res[key],
@@ -43,7 +43,6 @@ export const deleteProduct = (id) => {
   return async (dispatch) => {
     const res = await productsAPI.deleteProduct(id)
 
-    console.log(res)
     dispatch(productsActions.delete(id))
   }
 }

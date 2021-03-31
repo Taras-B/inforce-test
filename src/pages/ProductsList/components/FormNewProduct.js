@@ -13,7 +13,7 @@ export const FormNewProduct = ({
       <TextField
         onChange={handleChange}
         value={values.name}
-        label='Product Name'
+        label='Продукт'
         name='name'
         variant='outlined'
         fullWidth
@@ -23,7 +23,7 @@ export const FormNewProduct = ({
       <TextField
         value={values.count}
         onChange={handleChange}
-        label='Count'
+        label='Кількість'
         name='count'
         variant='outlined'
         fullWidth
@@ -33,7 +33,7 @@ export const FormNewProduct = ({
       <TextField
         value={values.image}
         onChange={handleChange}
-        label='Image Url'
+        label='Силка на картинку'
         name='image'
         variant='outlined'
         fullWidth
@@ -43,7 +43,7 @@ export const FormNewProduct = ({
       <TextField
         value={values.height}
         onChange={handleChange}
-        label='Height'
+        label='Висота'
         name='height'
         variant='outlined'
         fullWidth
@@ -53,7 +53,7 @@ export const FormNewProduct = ({
       <TextField
         value={values.width}
         onChange={handleChange}
-        label='Width'
+        label='Ширина'
         name='width'
         variant='outlined'
         fullWidth
@@ -61,7 +61,7 @@ export const FormNewProduct = ({
         required={true}
       />
       <TextField
-        label='Weight'
+        label='Вага'
         onChange={handleChange}
         name='weight'
         variant='outlined'

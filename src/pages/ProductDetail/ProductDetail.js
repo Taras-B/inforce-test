@@ -1,8 +1,10 @@
 import React from 'react'
+
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router'
 
 import Grid from '@material-ui/core/Grid'
+import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
 import Paper from '@material-ui/core/Paper'
 import Divider from '@material-ui/core/Divider'
@@ -13,9 +15,12 @@ import CardContent from '@material-ui/core/CardContent'
 import CardActions from '@material-ui/core/CardActions'
 import Button from '@material-ui/core/Button'
 
-import { getProductById } from '../../store/product/thunk'
+import { Formik, Form } from 'formik'
+
+import { createComment, deleteComment, getProductById } from '../../store/product/thunk'
 import { CardDetailsProduct } from './components/CardDetailsProduct'
 import { EditProductModal } from './components/EditProductModal'
+import { CommentItem } from './components/CommentItem'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -42,6 +47,20 @@ export const ProductDetail = () => {
   const handleClose = () => {
     setOpen(false)
   }
+  const onSubmitForm = (values, actions) => {
+    console.log(values)
+    const data = {
+      description: values.comment,
+      productId: id,
+      date: new Date(),
+    }
+    dispatch(createComment(data, id))
+    actions.resetForm()
+  }
+
+  const onDeleteComment = (productId, id) => {
+    dispatch(deleteComment(productId, id))
+  }
 
   React.useEffect(() => {
     if (id) {
@@ -54,7 +73,7 @@ export const ProductDetail = () => {
     return <div>no yet</div>
   }
   return (
-    <Grid container justify='center' spacing={4} className={classes.root}>
+    <Grid container justify='center' spacing={6} className={classes.root}>
       <Grid item xs={12} md={12}>
         <Paper elevation={7} style={{ padding: 10 }}>
           <Grid container spacing={1} alignItems='center'>
@@ -88,6 +107,39 @@ export const ProductDetail = () => {
             handleClose={handleClose}
           />
         </Paper>
+      </Grid>
+
+      <Grid container item xs={12} spacing={4}>
+        <Grid item xs={12}>
+          <Formik
+            initialValues={{
+              comment: '',
+            }}
+            onSubmit={onSubmitForm}>
+            {({ handleChange, values }) => (
+              <Form>
+                <TextField
+                  onChange={handleChange}
+                  value={values.comment}
+                  label='You comment'
+                  name='comment'
+                  variant='outlined'
+                  fullWidth
+                  margin='normal'
+                  required={true}
+                />
+                <Button type='submit'>Надіслати</Button>
+              </Form>
+            )}
+          </Formik>
+          <Divider />
+        </Grid>
+        <Grid container spacing={4} item>
+          {product.comment &&
+            product.comment.map((item) => (
+              <CommentItem key={item.id} item={item} onDeleteComment={onDeleteComment} />
+            ))}
+        </Grid>
       </Grid>
     </Grid>
   )
